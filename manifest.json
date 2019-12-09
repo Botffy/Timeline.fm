@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "timeline-plugin",
+  "version": "0.1.0",
+  "description": "Google Maps Timeline plugin",
+
+  "content_scripts": [{
+    "js": ["lib/moment.min.js", "main.js"],
+    "matches": ["https://www.google.com/maps/timeline?pb*"],
+    "all_frames": true,
+    "run_at": "document_start"
+  }]
+}
