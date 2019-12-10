@@ -24,6 +24,7 @@ const registry = {
   store: [],
 
   addSegment: function(node) {
+    const contentBox = node.getElementsByClassName("photo-grid-wrapper")[0];
     const durations = Array.from(node.querySelectorAll('div.duration-text > span'));
     if (!durations.length) {
       const duration = parseDuration(node.getElementsByClassName('duration-text')[0].innerHTML);
@@ -31,7 +32,8 @@ const registry = {
       lastEnd.add(duration);
 
       this.store.push({
-        end: lastEnd
+        end: lastEnd,
+        contentBox: contentBox
       });
       return;
     }
@@ -55,7 +57,8 @@ const registry = {
     }
 
     this.store.push({
-      end: times[1]
+      end: times[1],
+      contentBox: contentBox
     });
   },
 
