@@ -16,22 +16,22 @@ const parseDuration = str => {
     }
     return result;
   }
-}
+};
 
 const registry = {
   date: null,
+  startTime: null,
   store: [],
 
   addSegment: function(node) {
     const durations = Array.from(node.querySelectorAll('div.duration-text > span'));
     if (!durations.length) {
       const duration = parseDuration(node.getElementsByClassName('duration-text')[0].innerHTML);
-      const lastEnd = this.store.length ? moment(this.store[this.store.length - 1].end) : moment(this.date, 'YYYY-MM-DD', true);
+      const lastEnd = this.store.length ? moment(this.store[this.store.length - 1].end) : moment(this.startTime);
+      lastEnd.add(duration);
 
-      console.log(duration);
       this.store.push({
-        start: lastEnd,
-        end: moment(lastEnd).add(duration)
+        end: lastEnd
       });
       return;
     }
@@ -49,10 +49,12 @@ const registry = {
       times = ['00:00 AM', durations[2].innerHTML]
     }
 
-    times = times.map(x => moment(this.date + " " + x, 'YYYY-MM-DD h:mm a', true))
+    times = times.map(x => moment(this.date + " " + x, 'YYYY-MM-DD h:mm a', true));
+    if (!this.store.length) {
+      this.startTime = times[0];
+    }
 
     this.store.push({
-      start: times[0],
       end: times[1]
     });
   },
@@ -60,6 +62,7 @@ const registry = {
   reset: function(dateString) {
     this.store = [];
     this.date = dateString;
+    this.startTime = moment(this.date, 'YYYY-MM-DD', true);
   }
 };
 
@@ -71,6 +74,8 @@ const observeDayChange = (overlayElement) => {
     for (let node of document.getElementsByClassName("place-history-moment-outer")) {
       registry.addSegment(node);
     }
+
+    console.log(registry.store);
   });
   timelineChangeObserver.observe(overlayElement, {attributes: true, childList: false, subtree: false});
 };
