@@ -18,16 +18,39 @@ const parseDuration = str => {
   }
 };
 
-const registry = {
-  date: null,
-  startTime: null,
-  store: [],
+class Timeline {
+  constructor(segmentCallback) {
+    this.segmentCallback = segmentCallback;
+    this.date = null;
+    this.startTime = null;
+    this.store = [];
 
-  addSegment: function(node) {
-    const contentBox = node.getElementsByClassName("photo-grid-wrapper")[0];
-    const durations = Array.from(node.querySelectorAll('div.duration-text > span'));
+    this._createObserver();
+  }
+
+  _createObserver() {
+    const overlayElement = document.getElementsByClassName('single-day')[0];
+    if (overlayElement) {
+      this._onDayChange(overlayElement);
+    } else {
+      const titleCatcher = (observer) => {
+        if (document.getElementsByClassName('single-day')[0]) {
+          observer.disconnect();
+          this._onDayChange(document.getElementsByClassName('single-day')[0]);
+        }
+      };
+      const observer = new MutationObserver(() => {
+        titleCatcher(observer);
+      });
+      observer.observe(document.documentElement, { attributes: true, childList: true, subtree: true });
+    };
+  }
+
+  _addSegment(segmentNode) {
+    const contentBox = segmentNode.getElementsByClassName("photo-grid-wrapper")[0];
+    const durations = Array.from(segmentNode.querySelectorAll('div.duration-text > span'));
     if (!durations.length) {
-      const duration = parseDuration(node.getElementsByClassName('duration-text')[0].innerHTML);
+      const duration = parseDuration(segmentNode.getElementsByClassName('duration-text')[0].innerHTML);
       const lastEnd = this.store.length ? moment(this.store[this.store.length - 1].end) : moment(this.startTime);
       lastEnd.add(duration);
 
@@ -60,41 +83,20 @@ const registry = {
       end: times[1],
       contentBox: contentBox
     });
-  },
-
-  reset: function(dateString) {
-    this.store = [];
-    this.date = dateString;
-    this.startTime = moment(this.date, 'YYYY-MM-DD', true);
-  }
-};
-
-const observeDayChange = (overlayElement) => {
-  const timelineChangeObserver = new MutationObserver(() => {
-    const dateString = window.location.href.slice(window.location.href.length - 10);
-    registry.reset(dateString);
-
-    for (let node of document.getElementsByClassName("place-history-moment-outer")) {
-      registry.addSegment(node);
-    }
-
-    console.log(registry.store);
-  });
-  timelineChangeObserver.observe(overlayElement, {attributes: true, childList: false, subtree: false});
-};
-
-const overlayElement = document.getElementsByClassName('single-day')[0];
-if (overlayElement) {
-  observeDayChange(overlayElement);
-} else {
-  const titleCatcher = (observer) => {
-    if (document.getElementsByClassName('single-day')[0]) {
-      observer.disconnect();
-      observeDayChange(document.getElementsByClassName('single-day')[0]);
-    }
   };
-  const observer = new MutationObserver(() => {
-    titleCatcher(observer);
-  });
-  observer.observe(document.documentElement, { attributes: true, childList: true, subtree: true });
+
+  _onDayChange(overlayElement) {
+    const timelineChangeObserver = new MutationObserver(() => {
+      this.date = window.location.href.slice(window.location.href.length - 10);
+      this.startTime = moment(this.date, 'YYYY-MM-DD', true);
+      this.store = [];
+
+      for (let node of document.getElementsByClassName("place-history-moment-outer")) {
+        this._addSegment(node);
+      }
+    });
+    timelineChangeObserver.observe(overlayElement, {attributes: true, childList: false, subtree: false});
+  };
 };
+
+let t = new Timeline(() => console.log("hi"));
