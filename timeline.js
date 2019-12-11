@@ -71,7 +71,7 @@ class Timeline {
       times = [durations[1].innerHTML, '11:59 PM'];
     } else if (durations[2].style.display !== 'none') {
       // durations[2] holds only an ending time
-      times = ['00:00 AM', durations[2].innerHTML]
+      times = ['12:00 AM', durations[2].innerHTML]
     }
 
     times = times.map(x => moment(this.date + " " + x, 'YYYY-MM-DD h:mm a', true));
@@ -86,6 +86,8 @@ class Timeline {
   };
 
   _onDayChange(overlayElement) {
+    Array.from(document.querySelectorAll('.photo-grid-wrapper .injectedContent')).forEach(x => x.remove());
+
     const timelineChangeObserver = new MutationObserver(() => {
       this.date = window.location.href.slice(window.location.href.length - 10);
       this.startTime = moment(this.date, 'YYYY-MM-DD', true);
@@ -117,8 +119,10 @@ class Timeline {
         contentBox: Timeline._createBox(this.store[i].contentBox)
       });
     }
-    this.onTimelineCallback(result);
+    this.onTimelineCallback({ activities: result }, () => this._handleWrapperVisibility(result));
+  };
 
+  _handleWrapperVisibility(result) {
     for (let elem of result) {
       const box = elem.contentBox;
       box.style.display = box.innerHTML ? '' : 'none';
@@ -128,5 +132,5 @@ class Timeline {
         box.parentElement.style.display = '';
       }
     }
-  };
+  }
 };
