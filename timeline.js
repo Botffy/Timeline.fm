@@ -55,17 +55,21 @@ class Timeline {
     }
 
     let times = null;
-    if (durations[0].style.display !== 'none') {
+    if (durations[0].innerHTML != '') {
       // durations[0] holds both start and end time
       const timeSpans = Array.from(durations[0].querySelectorAll('span.segment-duration-part'));
       times = [timeSpans[0].innerHTML, timeSpans[1].innerHTML];
-    } else if (durations[1].style.display !== 'none') {
+    } else if (durations[1].innerHTML != '') {
       // durations[1] holds only a starting time
       times = [durations[1].innerHTML, '11:59 PM'];
-    } else if (durations[2].style.display !== 'none') {
+    } else if (durations[2].innerHTML != '') {
       // durations[2] holds only an ending time
       times = ['12:00 AM', durations[2].innerHTML]
+    } else if (durations[3].innerHTML != '') {
+      // durations[3] holds durations longer than a day ('mar 05 - mar 07')
+      times = ['12:00 AM', '11:59 PM'];
     }
+    console.log(times);
 
     times = times.map(x => moment(this.date + " " + x, 'YYYY-MM-DD h:mm a', true));
     if (!this.store.length) {
