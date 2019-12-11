@@ -1,21 +1,14 @@
 const parseDuration = str => {
-  const result = {};
-  const bits = str.split(" ");
-  for (let i = 0; i < bits.length; i +=2 ) {
-    switch (bits[i + 1]) {
-      case 'min':
-      case 'mins':
-        result['minutes'] = parseInt(bits[i]);
-        break;
-      case 'hour':
-      case 'hours':
-        result['hours'] = parseInt(bits[i]);
-        break;
-      default:
-        throw new Error("Unknown duration value " + bits[i + 1]);
-    }
-    return result;
+  const bits = str.split(' ').filter((val, idx) => idx % 2 == 0).map(parseInt);
+  let result = moment.duration();
+  if (bits.length > 2) {
+    result.add(bits[2], 'days');
   }
+  if (bits.length == 2) {
+    result.add(bits[1], 'hours');
+  }
+  result.add(bits[0], 'minutes');
+  return result;
 };
 
 class Timeline {

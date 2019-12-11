@@ -1,6 +1,5 @@
 # Fixes
 
-- better duration parsing. no need to parse h, min, moment("2:03") is valid (this takes care of localization issues)
 - handle "unknown activity" (no duration text)
 - handle activities lasting more than one day
 - handle day overflow, when activities are on the next calendar day
