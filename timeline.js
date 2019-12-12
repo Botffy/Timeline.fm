@@ -69,11 +69,15 @@ class Timeline {
       // durations[3] holds durations longer than a day ('mar 05 - mar 07')
       times = ['12:00 AM', '11:59 PM'];
     }
-    console.log(times);
 
     times = times.map(x => moment(this.date + " " + x, 'YYYY-MM-DD h:mm a', true));
     if (!this.store.length) {
       this.startTime = times[0];
+    }
+
+    const last = this.store.length ? this.store[this.store.length - 1].end : this.startTime;
+    if (times[1].isBefore(last)) {
+      times[1].add(1, 'days');
     }
 
     this.store.push({

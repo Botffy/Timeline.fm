@@ -1,7 +1,6 @@
 # Fixes
 
 - handle "unknown activity" (no duration text)
-- handle day overflow, when activities are on the next calendar day
 
 # Requirements
 
