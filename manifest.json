@@ -7,14 +7,24 @@
   "content_scripts": [{
     "js": [
       "lib/moment.min.js",
+      "lib/Toast.min.js",
       "timeline.js",
-      "main.js"],
+      "lastfm.js",
+      "main.js"
+    ],
     "matches": ["https://www.google.com/maps/timeline?pb*"],
     "all_frames": true,
     "run_at": "document_start"
   }],
 
+  "options_ui": {
+    "page": "options_page.html",
+    "chrome_style": true,
+    "open_in_tab": true
+  },
+
   "permissions": [
+    "storage",
     "https://ws.audioscrobbler.com/"
   ]
 }
