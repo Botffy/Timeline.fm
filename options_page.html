@@ -3,8 +3,27 @@
 <head>
     <title>Timeline.fm - settings</title>
     <style>
-        label {
-            font-weight: bold;
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        #userData {
+            font-size: large;
+            text-decoration: none;
+            color: black;
+        }
+        #userData img {
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+            vertical-align: middle;
+            margin-right: 0.5em;
+        }
+        #settings-form {
+            margin-top: 2em;
+        }
+        .error {
+            color: red;
         }
     </style>
     <script src="lib/Toast.min.js"></script>
@@ -13,13 +32,14 @@
     <link rel="stylesheet" type="text/css" href="lib/Toast.min.css">
 </head>
 <body>
-    <h1>Settings</h1>
-    <div class='container'>
-        <form id='settings-form'>
-            <label for='lastfm-user'>Last.fm user:</label>
-            <input type='text' id='lastfm-user' />
-            <input type='submit' id="save" value='Save' />
-        </form>
-    </div>
+    <h1>Last.fm user</h1>
+
+    <div id='userData'></div>
+
+    <form id='settings-form'>
+        <label for='lastfm-user'>Change user:</label>
+        <input type='text' id='lastfm-user' />
+        <input type='submit' id="save" value='Save' />
+    </form>
 </body>
 </html>
