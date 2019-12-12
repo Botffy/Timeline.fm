@@ -6,18 +6,23 @@ const onSubmit = e => {
 };
 
 const userValidationFailed = error => {
-  new Toast({
-    message: `User validation failed: ${error.message} (code ${error.error})`,
-    type: 'danger'
+  chrome.notifications.create("failed_validation", {
+    iconUrl: 'res/last-fm.png',
+    type: 'basic',
+    message: `${error.message} (code ${error.error})`,
+    title: 'Failed to set user'
   });
 };
 
 const setUser = user => {
   chrome.storage.sync.set({lastFmUser: user.name}, function() {
     fillUserData(user);
-    new Toast({
-      message: `Last.fm user set to ${user.name}`, type: 'success'
-    })
+    chrome.notifications.create("user_set", {
+      iconUrl: 'res/last-fm.png',
+      type: 'basic',
+      message: `Last.fm user set to ${user.name}`,
+      title: 'User set!'
+    });
   });
 };
 

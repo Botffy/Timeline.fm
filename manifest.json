@@ -7,7 +7,6 @@
   "content_scripts": [{
     "js": [
       "lib/moment.min.js",
-      "lib/Toast.min.js",
       "timeline.js",
       "lastfm.js",
       "main.js"
@@ -24,6 +23,7 @@
   },
 
   "permissions": [
+    "notifications",
     "storage",
     "https://ws.audioscrobbler.com/"
   ]
