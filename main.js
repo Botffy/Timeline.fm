@@ -8,7 +8,9 @@ const getScrobbles = (period, onScrobbles) => {
   xhr.open("GET", `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastFm.user}&api_key=${lastFm.apiKey}&from=${period.start.unix()}&to=${period.end.unix()}&limit=200&format=json`, true);
   xhr.onreadystatechange = function() {
     if (xhr.readyState === XMLHttpRequest.DONE) {
-      onScrobbles(JSON.parse(xhr.responseText).recenttracks.track.reverse());
+      onScrobbles(JSON.parse(xhr.responseText).recenttracks.track
+        .filter(x => !(x['@attr'] && x['@attr']['nowplaying']))
+        .reverse());
     }
   }
   xhr.send();
