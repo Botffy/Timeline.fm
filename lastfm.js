@@ -16,5 +16,18 @@ const lastFm = {
       }
     }
     xhr.send();
+  },
+
+  getScrobbles: function(user, period, onScrobbles) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `${this._baseUrl}?method=user.getrecenttracks&user=${user}&api_key=${this._apiKey}&from=${period.start.unix()}&to=${period.end.unix()}&limit=200&format=json`, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        onScrobbles(JSON.parse(xhr.responseText).recenttracks.track
+          .filter(x => !(x['@attr'] && x['@attr']['nowplaying']))
+          .reverse());
+      }
+    }
+    xhr.send();
   }
 };
