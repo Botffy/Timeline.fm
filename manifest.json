@@ -4,6 +4,11 @@
   "version": "0.1.0",
   "description": "Google Maps Timeline plugin",
 
+  "background": {
+    "scripts": ["oninstall.js"],
+    "persistent": false
+  },
+
   "content_scripts": [{
     "js": [
       "lib/moment.min.js",
