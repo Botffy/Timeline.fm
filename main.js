@@ -5,6 +5,10 @@ const callback = (result, onInsert) => {
   }
 
   chrome.storage.sync.get(['lastFmUser'], res => {
+    if (!res.lastFmUser) {
+      return;
+    }
+
     lastFm.getScrobbles(res.lastFmUser, {
       start: activities[0].startTime,
       end: activities[activities.length - 1].endTime
