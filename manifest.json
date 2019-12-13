@@ -17,7 +17,7 @@
       "main.js"
     ],
     "matches": ["https://www.google.com/maps/timeline?pb*"],
-    "all_frames": true
+    "run_at": "document_start"
   }],
 
   "options_ui": {
