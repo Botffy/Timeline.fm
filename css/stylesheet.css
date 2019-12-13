@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Open Sans,Lucida Grande,Helvetica Neue,Helvetica,Arial,Sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: 1em;
+    color: rgba(0,0,0,.7);
+}
+
+/** Global input tyles **/
+
+input[type="text"] {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,.2);
+    color: rgba(0,0,0,0.6);
+}
+
+a.btn,
+button,
+input[type="button"],
+input[type="submit"] {
+    display: inline-block;
+    padding: 9px 20px 10px;
+    border-radius: 1000000px;
+    min-width: 100px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-appearance: none;
+    color: #fff;
+    background-color: #d92323;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+    background-image: none;
+}
+
+a.btn:hover,
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    background-image: none;
+}
+
+/** Global page structure styles **/
+
+.container {
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 2.2em;
+}
+
+h2 {
+    font-size: 1.4em;
+    font-weight: 500;
+    margin: 6px 0 22px 0;
+}
+
+section {
+    display: block;
+    margin-top: 22px;
+    padding: 22px 32px;
+    background-color: rgba(0,0,0,.05);
+}
+
+section.change-user #save{
+    margin-top: 24px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.top-bar {
+    display: block;
+    height: 60px;
+    background-color: #000;
+    position: relative;
+}
+
+.top-bar .logo {
+    text-decoration: none;
+    color: #d51007;
+    line-height: 60px;
+    font-size: 1.8em;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 150px;
+    text-align: center;
+    margin-left: -75px;
+    font-weight: 500;
+}
+
+#userData {
+    font-size: large;
+    text-decoration: none;
+    color: black;
+    margin: 22px 0px;
+}
+
+#userData img {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+#settings-form {
+    margin-top: 2em;
+}
+
+.error {
+    color: red;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin-left: 22px;
+        margin-right: 22px;
+    }
+}

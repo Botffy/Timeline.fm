@@ -2,42 +2,32 @@
 <html>
 <head>
     <title>Timeline.fm - settings</title>
-    <style>
-        a {
-            text-decoration: none;
-            color: black;
-        }
-        #userData {
-            font-size: large;
-            text-decoration: none;
-            color: black;
-        }
-        #userData img {
-            border-radius: 50%;
-            height: 50px;
-            width: 50px;
-            vertical-align: middle;
-            margin-right: 0.5em;
-        }
-        #settings-form {
-            margin-top: 2em;
-        }
-        .error {
-            color: red;
-        }
-    </style>
-    <script src="lastfm.js"></script>
-    <script src="options_page.js"></script>
+    <link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
-    <h1>Last.fm user</h1>
+    <header class="top-bar">
+        <div class="container">
+            <a href class="logo">TimeLine.fm</a>
+        </div>
+    </header>
 
-    <div id='userData'></div>
+    <div class="container">
+        <div id='userData'></div>
+    </div>
 
-    <form id='settings-form'>
-        <label for='lastfm-user'>Change user:</label>
-        <input type='text' id='lastfm-user' />
-        <input type='submit' id="save" value='Save' />
-    </form>
+    <div class="container">    
+        <section class="change-user">
+            <h2>Change User</h2>
+            <form id='settings-form'>
+                <label for='lastfm-user'>Username:</label>
+                <input type='text' id='lastfm-user' />
+                <br>
+                <input type='submit' id="save" value='Save user' />
+            </form>
+        </section>
+
+        <script src="lastfm.js"></script>
+        <script src="options_page.js"></script>
+    </div>
 </body>
 </html>
