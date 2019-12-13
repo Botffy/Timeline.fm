@@ -5,7 +5,7 @@ This is a Google Chrome extension that displays your [Last.fm](https://www.last.
 
 <img src="doc/screenshot.png" alt="screenshot" height="360"/>
 
-This is very much a work in progress. See the [TODO](./TODO.md) document for a vague roadmap.
+This is very much a work in progress. See the Issues for known issues and limitations.
 
 # Installation
 
