@@ -87,9 +87,8 @@ class Timeline {
   };
 
   _onDayChange(overlayElement) {
-    Array.from(document.querySelectorAll('.photo-grid-wrapper .injectedContent')).forEach(x => x.remove());
-
     const timelineChangeObserver = new MutationObserver(() => {
+      Array.from(document.querySelectorAll('.photo-grid-wrapper .injectedContent')).forEach(x => x.remove());
       this.date = window.location.href.slice(window.location.href.length - 10);
       this.startTime = moment(this.date, 'YYYY-MM-DD', true);
       this.store = [];
