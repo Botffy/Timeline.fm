@@ -10,3 +10,9 @@ This is very much a work in progress. See the [TODO](./TODO.md) document for a v
 # Installation
 
 Manually, as an [unpacked extension](https://developer.chrome.com/extensions/getstarted).
+
+# How it works
+
+It analyzes the DOM of the timeline page, parsing time information. It then queries last.fm for the songs scrobbled during the day, and injects data about the song to under the appropriate activity.
+
+Of course it is extremely fragile, and will break horribly if the structure of the Timeline page changes.
