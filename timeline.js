@@ -13,6 +13,7 @@ const parseDuration = str => {
 
 class Timeline {
   constructor(segmentCallback) {
+    console.log("Creating timeline parser");
     this.onTimelineCallback = segmentCallback;
     this.date = null;
     this.startTime = null;
@@ -24,11 +25,14 @@ class Timeline {
   _createObserver() {
     const overlayElement = document.getElementsByClassName('single-day')[0];
     if (overlayElement) {
+      console.log("single-day element exists")
       this._onDayChange(overlayElement);
     } else {
+      console.log("single-day does not yet exist, creating observer");
       const titleCatcher = (observer) => {
         if (document.getElementsByClassName('single-day')[0]) {
           observer.disconnect();
+          console.log("single-day element created");
           this._onDayChange(document.getElementsByClassName('single-day')[0]);
         }
       };
@@ -51,6 +55,7 @@ class Timeline {
         end: lastEnd,
         contentBox: contentBox
       });
+      console.log("Added travel segment");
       return;
     }
 
@@ -84,14 +89,17 @@ class Timeline {
       end: times[1],
       contentBox: contentBox
     });
+    console.log("Added place segment");
   };
 
   _onDayChange(overlayElement) {
     const timelineChangeObserver = new MutationObserver(() => {
+      console.log("Removing injected content");
       Array.from(document.querySelectorAll('.photo-grid-wrapper .injectedContent')).forEach(x => x.remove());
       this.date = window.location.href.slice(window.location.href.length - 10);
       this.startTime = moment(this.date, 'YYYY-MM-DD', true);
       this.store = [];
+      console.log("Date is " + this.date);
 
       for (let node of document.getElementsByClassName("place-history-moment-outer")) {
         this._addSegment(node);
