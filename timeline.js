@@ -47,6 +47,11 @@ class Timeline {
     const contentBox = segmentNode.getElementsByClassName("photo-grid-wrapper")[0];
     const durations = Array.from(segmentNode.querySelectorAll('div.duration-text > span'));
     if (!durations.length) {
+      if (!segmentNode.getElementsByClassName('duration-text')[0]) {
+        console.log("Skipping missing activity");
+        return;
+      }
+
       const duration = parseDuration(segmentNode.getElementsByClassName('duration-text')[0].innerHTML);
       const lastEnd = this.store.length ? moment(this.store[this.store.length - 1].end) : moment(this.startTime);
       lastEnd.add(duration);
