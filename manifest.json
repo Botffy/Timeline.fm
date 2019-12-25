@@ -16,7 +16,7 @@
       "lastfm.js",
       "main.js"
     ],
-    "matches": ["https://www.google.com/maps/timeline?pb*"],
+    "matches": ["https://www.google.com/maps/timeline*"],
     "run_at": "document_start"
   }],
 
