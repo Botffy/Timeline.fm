@@ -59,6 +59,7 @@ class Timeline {
     }
 
     let times = null;
+    let isFinalSegment = false;
     if (durations[0].innerHTML != '') {
       // durations[0] holds both start and end time
       const timeSpans = Array.from(durations[0].querySelectorAll('span.segment-duration-part'));
@@ -66,6 +67,7 @@ class Timeline {
     } else if (durations[1].innerHTML != '') {
       // durations[1] holds only a starting time
       times = [durations[1].innerHTML, '11:59 PM'];
+      isFinalSegment = true;
     } else if (durations[2].innerHTML != '') {
       // durations[2] holds only an ending time
       times = ['12:00 AM', durations[2].innerHTML]
@@ -82,6 +84,13 @@ class Timeline {
     const last = this.store.length ? this.store[this.store.length - 1].end : this.startTime;
     if (times[1].isBefore(last)) {
       times[1].add(1, 'days');
+      if (isFinalSegment) {
+        times[1].set({
+          hour: times[0].get('hour'),
+          minutes: times[0].get('minute')
+        });
+        times[1].add(2, 'hours');
+      }
     }
 
     this.store.push({
