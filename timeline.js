@@ -19,29 +19,23 @@ class Timeline {
     this.startTime = null;
     this.store = [];
 
-    this._createObserver();
+    this._bootstrap();
   }
 
-  _createObserver() {
-    const overlayElement = document.getElementsByClassName('single-day')[0];
-    if (overlayElement) {
-      console.log("single-day element exists")
-      this._onDayChange(overlayElement);
-    } else {
-      console.log("single-day does not yet exist, creating observer");
-      const titleCatcher = (observer) => {
-        if (document.getElementsByClassName('single-day')[0]) {
-          observer.disconnect();
-          console.log("single-day element created");
-          this._onDayChange(document.getElementsByClassName('single-day')[0]);
-        }
-      };
-      const observer = new MutationObserver(() => {
-        titleCatcher(observer);
-      });
-      observer.observe(document.documentElement, { attributes: true, childList: true, subtree: true });
+  _bootstrap() {
+    console.log("Creating observer for single-day element");
+    const titleCatcher = (observer) => {
+      if (document.getElementsByClassName('single-day')[0]) {
+        observer.disconnect();
+        console.log("single-day element created");
+        this._onDayChange(document.getElementsByClassName('single-day')[0]);
+      }
     };
-  }
+    const observer = new MutationObserver(() => {
+      titleCatcher(observer);
+    });
+    observer.observe(document.documentElement, { attributes: true, childList: true, subtree: true });
+  };
 
   _addSegment(segmentNode) {
     const contentBox = segmentNode.getElementsByClassName("photo-grid-wrapper")[0];
