@@ -23,9 +23,14 @@ const lastFm = {
     xhr.open("GET", `${this._baseUrl}?method=user.getrecenttracks&user=${user}&api_key=${this._apiKey}&from=${period.start.unix()}&to=${period.end.unix()}&limit=200&format=json`, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        onScrobbles(JSON.parse(xhr.responseText).recenttracks.track
-          .filter(x => !(x['@attr'] && x['@attr']['nowplaying']))
-          .reverse());
+        const recentTracks = JSON.parse(xhr.responseText).recenttracks;
+        if (recentTracks.track.filter) {
+          onScrobbles(recentTracks.track
+            .filter(x => !(x['@attr'] && x['@attr']['nowplaying']))
+            .reverse());
+        } else {
+          onScrobbles([]);
+        }
       }
     }
     xhr.send();
