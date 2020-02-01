@@ -4,6 +4,10 @@
   "version": "0.1.0",
   "description": "Display your scrobbled songs on your Google Maps Timeline",
 
+  "icons": {
+    "128": "res/logo_128.png"
+  },
+
   "background": {
     "scripts": ["oninstall.js"],
     "persistent": false
