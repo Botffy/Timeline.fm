@@ -28,7 +28,8 @@ class Timeline {
       if (document.getElementsByClassName('single-day')[0]) {
         observer.disconnect();
         console.log("single-day element created");
-        this._onDayChange(document.getElementsByClassName('single-day')[0]);
+        this._addDayObserver(document.getElementsByClassName('single-day')[0]);
+        this._onDayChange();
       }
     };
     const observer = new MutationObserver(() => {
@@ -100,21 +101,23 @@ class Timeline {
     console.log("Added place segment");
   };
 
-  _onDayChange(overlayElement) {
-    const timelineChangeObserver = new MutationObserver(() => {
-      console.log("Removing injected content");
-      Array.from(document.querySelectorAll('.photo-grid-wrapper .injectedContent')).forEach(x => x.remove());
-      this.date = window.location.href.slice(window.location.href.length - 10);
-      this.startTime = moment(this.date, 'YYYY-MM-DD', true);
-      this.store = [];
-      console.log("Date is " + this.date);
+  _onDayChange = () => {
+    console.log("Removing injected content");
+    Array.from(document.querySelectorAll('.photo-grid-wrapper .injectedContent')).forEach(x => x.remove());
+    this.date = window.location.href.slice(window.location.href.length - 10);
+    this.startTime = moment(this.date, 'YYYY-MM-DD', true);
+    this.store = [];
+    console.log("Date is " + this.date);
 
-      for (let node of document.getElementsByClassName("place-history-moment-outer")) {
-        this._addSegment(node);
-      }
+    for (let node of document.getElementsByClassName("place-history-moment-outer")) {
+      this._addSegment(node);
+    }
 
-      this._applyCallback();
-    });
+    this._applyCallback();
+  };
+
+  _addDayObserver(overlayElement) {
+    const timelineChangeObserver = new MutationObserver(this._onDayChange);
     timelineChangeObserver.observe(overlayElement, {attributes: true, childList: false, subtree: false});
   };
 
