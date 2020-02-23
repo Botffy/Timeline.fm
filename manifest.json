@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Timeline.fm",
-  "version": "0.1.0",
-  "description": "Display your scrobbled songs on your Google Maps Timeline",
+  "version": "0.1.1",
+  "description": "Display your Last.fm scrobbles on your Google Maps Timeline. Because it's fun to see what you listened to where!",
 
   "icons": {
     "128": "res/logo_128.png"
