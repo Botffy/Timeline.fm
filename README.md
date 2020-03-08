@@ -9,7 +9,8 @@ This is very much a work in progress. See the Issues for known issues and limita
 
 # Installation
 
-Manually, as an [unpacked extension](https://developer.chrome.com/extensions/getstarted).
+[From the Chrome Web Store](https://chrome.google.com/webstore/detail/eckfclnhmoemjbbkgeeoknfjfhgpaang).
+Or manually, as an [unpacked extension](https://developer.chrome.com/extensions/getstarted).
 
 # How it works
 
